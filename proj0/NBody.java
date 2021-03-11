@@ -33,7 +33,7 @@ public class NBody {
 	}
 
 
-	public static void drawBackground(double x , double y) {
+	private static void drawBackground(double x , double y) {
 		String  imageToDraw = "./images/starfield.jpg";
 		StdDraw.setScale(x, y);
 		StdDraw.picture(0, 0, imageToDraw);
