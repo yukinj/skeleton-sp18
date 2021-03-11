@@ -17,7 +17,7 @@ public class NBody {
 		double rediusOfUniverse = in.readDouble();
 		Planet[] result = new Planet[numberOfPlanet];
 		int i = 0;
-		while (i < 5) {
+		while (i < numberOfPlanet) {
 			double xp = in.readDouble();
 			double yp = in.readDouble();
 			double xv = in.readDouble();
@@ -46,7 +46,7 @@ public class NBody {
 			double T = Double.valueOf(args[0]);
 			double dt = Double.valueOf(args[1]);
 			String filename = args[2];
-			double radius =readRadius(filename);
+			double radius = readRadius(filename);
 			drawBackground(radius,-radius);
 			Planet[] planets = readPlanets(filename);
 			

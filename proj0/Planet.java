@@ -22,48 +22,18 @@ public class Planet{
 	}
 
 	public Planet(Planet p){
-			this(p.getXp(),p.getYp(),p.getXv(),p.getYv(),p.getM(),p.getImg());
+		this.xxPos = p.xxPos;
+		this.yyPos = p.yyPos;
+		this.xxVel = p.xxVel;
+		this.yyVel = p.yyVel;
+		this.mass =  p.mass;
+		this.imgFileName =  p.imgFileName;
+
+
+			//this(p.getXp(),p.getYp(),p.getXv(),p.getYv(),p.getM(),p.getImg());
 	}
 
-	public double getXp(){
-		return xxPos;
-	}
-	public void setXp(double xp){
-		this.xxPos = xp;
-	}
-
-	public double getYp(){
-		return yyPos;
-	}
-	public void setYp(double yp){
-		this.yyPos = yp;
-	}
-
-	public double getXv(){
-		return xxVel;
-	}
-	public void setXv(double xv){
-		this.xxVel = xv;
-	}
-
-	public double getYv(){
-		return yyVel;
-	}
-	public void setYv(double yv){
-		this.yyVel = yv;
-	}
-
-	public double getM(){
-		return mass;
-	}
-
-	public String getImg(){
-		return imgFileName;
-	}
-
-	public double getG(){
-		return G;
-	}
+	
 	/*return a double equal to the
 	 distance between the supplied planet;
 	  the planet that is doing the calculation**/
@@ -76,19 +46,16 @@ public class Planet{
 	/** takes in a planet, 
 	and returns a double describing the force exerted on this planet by the given planet. */
 	public double calcForceExertedBy(Planet r){
-		// double G = getG();
-		// double mass = getM();
 
 		return G*mass*r.mass/Math.pow(calcDistance(r),2); 
 	}
 
 	public double calcForceExertedByX(Planet r){
-		//double xxPos = getXp();
 
-		if((r.xxPos-xxPos)>0){
-			return G*mass*r.mass/Math.pow(calcDistance(r),2)*(r.xxPos - xxPos)/calcDistance(r);
+		if((r.xxPos-xxPos)>=0){
+			return calcForceExertedBy(r)*(r.xxPos - xxPos)/calcDistance(r);
 		}else{
-			return G*mass*r.mass/Math.pow(calcDistance(r),2)*(-r.xxPos + xxPos)/calcDistance(r);
+			return -calcForceExertedBy(r)*(-r.xxPos + xxPos)/calcDistance(r);
 		}
 	}
 
@@ -96,10 +63,10 @@ public class Planet{
 		// double yyPos = getYp();
 		// double G = getG();
 		// double mass = getM();
-		if((r.yyPos-yyPos)>0){
+		if((r.yyPos-yyPos)>=0){
 			return G*mass*r.mass/Math.pow(calcDistance(r),2)*(r.yyPos-yyPos)/calcDistance(r);
 		}else{
-			return G*mass*r.mass/Math.pow(calcDistance(r),2)*(-r.yyPos+yyPos)/calcDistance(r); 
+			return -G*mass*r.mass/Math.pow(calcDistance(r),2)*(-r.yyPos+yyPos)/calcDistance(r); 
 		}
 	}
 
