@@ -48,7 +48,7 @@ public class NBody {
 			String filename = args[2];
 			Double radius =readRadius(filename);
 			drawBackground(radius,-radius);
-			Planet[] planets =readPlanets(filename);
+			Planet[] planets = readPlanets(filename);
 			//System.out.println(planets.length);
 			//System.out.println(redius);
 			int i = 0;
@@ -64,9 +64,36 @@ public class NBody {
 						planets[j].xxPos, planets[j].yyPos, planets[j].xxVel,
 						planets[j].yyVel, planets[j].mass, planets[j].imgFileName);
 			}
+		//StdDraw.clear();
+		//System.out.println("start!!!");
+		StdDraw.enableDoubleBuffering(); //enableDoubleBuffering
+		Double time = 0.0;
+		while (time < T){
+			Double[] xForces = new Double[planets.length];
+			Double[] yForces = new Double[planets.length];
+			for(int x =0 ; x < planets.length; x++){
+				xForces[x] = 0.0;
+				yForces[x] = 0.0;
+			}
+			
+			for(int ii = 0 ;  ii< planets.length; ii++){				
+					xForces[ii] += planets[ii].calcNetForceExertedByX(planets);
+					yForces[ii] += planets[ii].calcNetForceExertedByY(planets);				
+			}
+			StdDraw.clear();
+			drawBackground(radius,-radius);
+			
+			for(int j=0; j < planets.length;j++){
+				planets[j].update(dt,xForces[j],yForces[j]);
+				planets[j].draw();
+			}
+			StdDraw.show();
+			StdDraw.pause(10);
+
+			time +=  dt;
 		}
 
-
+	}	
 
 	}
 

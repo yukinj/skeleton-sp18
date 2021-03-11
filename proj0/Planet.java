@@ -59,6 +59,23 @@ public class Planet{
 	public Double calcForceExertedBy(Planet r){
 		return G*mass*r.mass/Math.pow(calcDistance(r),2); 
 	}
+
+	public Double calcForceExertedByX(Planet r){
+		if((r.xxPos-xxPos)>0){
+			return G*mass*r.mass/Math.pow(calcDistance(r),2)*(r.xxPos-xxPos)/calcDistance(r);
+		}else{
+			return G*mass*r.mass/Math.pow(calcDistance(r),2)*(-r.xxPos+xxPos)/calcDistance(r);
+		}
+	}
+
+	public Double calcForceExertedByY(Planet r){
+		if((r.yyPos-yyPos)>0){
+			return G*mass*r.mass/Math.pow(calcDistance(r),2)*(r.yyPos-yyPos)/calcDistance(r);
+		}else{
+			return G*mass*r.mass/Math.pow(calcDistance(r),2)*(-r.yyPos+yyPos)/calcDistance(r); 
+		}
+	}
+
 	/**take in an array of Planets and calculate the net X and net Y 
 	force exerted by all planets  */
 	public Double calcNetForceExertedByX(Planet[] all){
