@@ -1,17 +1,17 @@
 public class Planet{
 	/** All variables and methods decleared public; 
 	    All methods should be non-static */
-	public Double xxPos;
-	public Double yyPos;
-	public Double xxVel;
-	public Double yyVel;
-	public Double mass;
+	public double xxPos;
+	public double yyPos;
+	public double xxVel;
+	public double yyVel;
+	public double mass;
 	public String imgFileName;
-	final static Double G = 6.67*1.0e-11;
+	private final static double G = 6.67*1.0e-11;
 	/** two constructors for planet 
 		
 	 */ 
-	public Planet(Double xP, Double yP, Double xV, Double yV, Double m, String img){
+	public Planet(double xP, double yP, double xV, double yV, double m, String img){
 		xxPos = xP;
 		yyPos = yP;
 		xxVel = xV;
@@ -25,50 +25,77 @@ public class Planet{
 			this(p.getXp(),p.getYp(),p.getXv(),p.getYv(),p.getM(),p.getImg());
 	}
 
-	public Double getXp(){
+	public double getXp(){
 		return xxPos;
 	}
+	public void setXp(double xp){
+		this.xxPos = xp;
+	}
 
-	public Double getYp(){
+	public double getYp(){
 		return yyPos;
 	}
+	public void setYp(double yp){
+		this.yyPos = yp;
+	}
 
-	public Double getXv(){
+	public double getXv(){
 		return xxVel;
 	}
-
-	public Double getYv(){
-		return yyVel;
+	public void setXv(double xv){
+		this.xxVel = xv;
 	}
 
-	public Double getM(){
+	public double getYv(){
+		return yyVel;
+	}
+	public void setYv(double yv){
+		this.yyVel = yv;
+	}
+
+	public double getM(){
 		return mass;
 	}
 
 	public String getImg(){
 		return imgFileName;
 	}
+
+	public double getG(){
+		return G;
+	}
 	/*return a double equal to the
 	 distance between the supplied planet;
 	  the planet that is doing the calculation**/
-	public Double calcDistance(Planet r){
+	public double calcDistance(Planet r){
+		// Double xxPos = getXp();
+		// Double yyPos = getYp();
+
 		return  Math.pow(Math.pow((r.xxPos-xxPos),2)+Math.pow((r.yyPos-yyPos),2),0.5);
 	}
 	/** takes in a planet, 
 	and returns a double describing the force exerted on this planet by the given planet. */
-	public Double calcForceExertedBy(Planet r){
+	public double calcForceExertedBy(Planet r){
+		// double G = getG();
+		// double mass = getM();
+
 		return G*mass*r.mass/Math.pow(calcDistance(r),2); 
 	}
 
-	public Double calcForceExertedByX(Planet r){
+	public double calcForceExertedByX(Planet r){
+		//double xxPos = getXp();
+
 		if((r.xxPos-xxPos)>0){
-			return G*mass*r.mass/Math.pow(calcDistance(r),2)*(r.xxPos-xxPos)/calcDistance(r);
+			return G*mass*r.mass/Math.pow(calcDistance(r),2)*(r.xxPos - xxPos)/calcDistance(r);
 		}else{
-			return G*mass*r.mass/Math.pow(calcDistance(r),2)*(-r.xxPos+xxPos)/calcDistance(r);
+			return G*mass*r.mass/Math.pow(calcDistance(r),2)*(-r.xxPos + xxPos)/calcDistance(r);
 		}
 	}
 
-	public Double calcForceExertedByY(Planet r){
+	public double calcForceExertedByY(Planet r){
+		// double yyPos = getYp();
+		// double G = getG();
+		// double mass = getM();
 		if((r.yyPos-yyPos)>0){
 			return G*mass*r.mass/Math.pow(calcDistance(r),2)*(r.yyPos-yyPos)/calcDistance(r);
 		}else{
@@ -78,8 +105,8 @@ public class Planet{
 
 	/**take in an array of Planets and calculate the net X and net Y 
 	force exerted by all planets  */
-	public Double calcNetForceExertedByX(Planet[] all){
-		Double netX = 0.0;
+	public double calcNetForceExertedByX(Planet[] all){
+		double netX = 0.0;
 		for(int i=0;i<all.length; ++i){
 			if (equals(all[i])){
 				continue;
@@ -91,8 +118,8 @@ public class Planet{
 		return netX;
 	}
 
-	public Double calcNetForceExertedByY(Planet[] all){
-		Double netY = 0.0;
+	public double calcNetForceExertedByY(Planet[] all){
+		double netY = 0.0;
 		for(Planet each : all){
 			if (this.equals(each)){
 				continue;
@@ -105,16 +132,22 @@ public class Planet{
 	}
 	/**  */
 
-	public void update(Double dt, Double fx, Double fy){
+	public void update(double dt, double fx, double fy){
 		// Step 1 : calculate the acceleration
-		Double ax = fx/mass;
-		Double ay = fy/mass;
+		// double mass = getM();
+		double ax = fx/mass;
+		double ay = fy/mass;
 		//Step 2 : Calculate the new velocity
-		this.xxVel = xxVel + ax * dt;
+		
+		this.xxVel =  xxVel + ax * dt;
 		this.yyVel = yyVel + ay * dt;
+		
 		// Step 3 : Calculate the new position
 		this.xxPos = xxPos + dt * xxVel;
 		this.yyPos = yyPos + dt * yyVel;
+		// setXp(xxPos);
+		// setYp(yyPos);
+
 	}
 
 	public void draw(){
